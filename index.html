@@ -1,1 +1,378 @@
-index.html
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fractions – Year 6 Maths</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#16204a;--mut:#56608a;--line:#d5dcee;--acc:#0a8f84;--ok:#0b7a45;--okbg:#dff5e8;--bad:#b3213f;--badbg:#fde3e8;--hero:#2a2f8f;--on:#0a8f84;--sun:#ffc233}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10142b;--card:#1a2042;--ink:#eef1ff;--mut:#a9b3e0;--line:#2f3866;--acc:#37d0c3;--ok:#6fe3a4;--okbg:#153d2b;--bad:#ff8fa5;--badbg:#45192a;--hero:#1c2070;--on:#37d0c3}}
+:root[data-theme="dark"]{--bg:#10142b;--card:#1a2042;--ink:#eef1ff;--mut:#a9b3e0;--line:#2f3866;--acc:#37d0c3;--ok:#6fe3a4;--okbg:#153d2b;--bad:#ff8fa5;--badbg:#45192a;--hero:#1c2070;--on:#37d0c3}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.55 Nunito,system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 48px}
+header{background:var(--hero);color:#fff;padding:28px 16px 22px}
+header .wrap{padding-bottom:0}
+h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;line-height:1.15;margin:0 0 .4em}
+h1{font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800}
+h2{font-size:1.7rem}h3{font-size:1.25rem;color:var(--acc)}
+header p{margin:0 0 12px;opacity:.9}
+header .bar{border-color:#fff}header .bar i{border-color:#fff}header .bar i.on{background:var(--sun)}
+nav{display:flex;gap:6px;margin:18px 0;overflow-x:auto;padding-bottom:4px}
+nav button{flex:1 0 auto;white-space:nowrap;font:800 1rem "Baloo 2",Nunito,sans-serif;padding:10px 12px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+:root:not([data-theme="light"]) nav button[aria-selected=true]{color:#10142b}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+.card.ex{border-left:8px solid var(--acc)}.card.warn{border-left:8px solid var(--bad)}
+.card p{margin:.4em 0}
+.bar{display:inline-flex;width:min(100%,240px);height:24px;border:2px solid var(--ink);border-radius:6px;overflow:hidden;margin:4px 8px 4px 0;vertical-align:middle}
+.bar i{flex:1;border-right:2px solid var(--ink)}.bar i:last-child{border-right:0}.bar i.on{background:var(--on)}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .2em;line-height:1.15;font-weight:800}
+.fr i{font-style:normal;padding:0 .3em;border-bottom:2px solid currentColor}.fr b{font-weight:800}
+.mx{display:inline-flex;align-items:center;gap:.05em;white-space:nowrap}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.chip input{position:absolute;opacity:0}
+.chip span{display:inline-block;padding:6px 12px;border:2px solid var(--line);border-radius:99px;cursor:pointer;font-weight:700;font-size:.95rem}
+.chip input:checked+span{background:var(--acc);border-color:var(--acc);color:#fff}
+:root:not([data-theme="light"]) .chip input:checked+span{color:#10142b}
+.chip input:focus-visible+span{outline:3px solid var(--sun)}
+.btn{font:800 1rem "Baloo 2",Nunito,sans-serif;padding:10px 18px;border-radius:12px;border:2px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+:root:not([data-theme="light"]) .btn{color:#10142b}
+.btn.alt{background:transparent;color:var(--acc)}.btn:disabled{opacity:.45;cursor:default}
+select{font:inherit;padding:6px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.hint{color:var(--mut);font-size:.9rem;margin:4px 0}
+.q{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.q.good{border-color:var(--ok)}.q.bad{border-color:var(--bad)}
+.qt{display:flex;gap:12px;align-items:flex-start;font-size:1.1rem}
+.no{background:var(--ink);color:var(--bg);border-radius:50%;min-width:2em;height:2em;display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.aw{margin:10px 0 0 44px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.in{width:3.2em;height:2.3em;text-align:center;font:700 1.1rem Nunito,sans-serif;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.inp .in{width:3em;height:2em}.inp s{display:block;width:100%;height:3px;background:var(--ink);margin:3px 0;text-decoration:none}
+.fb{margin:8px 0 0 44px}.good .fb{color:var(--ok)}
+.bad .fb{background:var(--badbg);color:var(--ink);padding:10px 14px;border-radius:10px}.bad .fb>b:first-child{color:var(--bad)}
+.fb ol{margin:4px 0 0;padding-left:22px}.fb .hd{margin:8px 0 0;font-weight:800}
+#score{background:var(--sun);color:#16204a;border-radius:16px;padding:14px 18px;font-weight:800;font-size:1.2rem;margin-bottom:14px}
+.ws{color:var(--ink)}.ws ol.wq>li{margin-bottom:22px;padding-left:4px;break-inside:avoid}
+.wa{margin-top:8px;display:flex;align-items:center;gap:6px}
+.bx{display:inline-block;width:2.6em;height:2.2em;border:2px solid var(--ink);border-radius:4px}.bx.wide{width:6em}
+.ws .fr .bx{width:2.4em;height:1.8em}.ws .fr s{display:block;width:100%;height:3px;background:var(--ink);margin:3px 0}
+.ln{border-bottom:2px solid var(--line);padding-bottom:8px}
+.wk{font-size:.9rem;color:var(--mut);margin:2px 0 8px}
+.hid{display:none}
+@media(max-width:560px){.aw,.fb{margin-left:0}}
+@media(prefers-reduced-motion:no-preference){.q{transition:border-color .2s}}
+@media print{
+ body{background:#fff!important}header,nav,.noprint{display:none!important}.pg{display:none!important}#pgW{display:block!important}
+ body.p-ws #answers,body.p-ans #sheet{display:none!important}
+ #sheet,#answers{--ink:#000;--card:#fff;--mut:#333;--line:#999;background:#fff!important;color:#000!important;border:0!important;padding:0!important}
+}
+</style></head><body>
+<header class="fm"><div class="wrap">
+<h1>Fractions</h1>
+<p>Year 6 maths: types of fractions, simplifying, adding, subtracting, multiplying and dividing.</p>
+[[1/2]][[3/4]][[5/6]]
+</div></header>
+<div class="wrap">
+<nav class="noprint" role="tablist">
+<button data-t="L" aria-selected="true" onclick="tab('L')">Basics</button>
+<button data-t="S" aria-selected="false" onclick="tab('S')">Simplify</button>
+<button data-t="A" aria-selected="false" onclick="tab('A')">Add and subtract</button>
+<button data-t="M" aria-selected="false" onclick="tab('M')">Multiply</button>
+<button data-t="D" aria-selected="false" onclick="tab('D')">Divide</button>
+<button data-t="P" aria-selected="false" onclick="tab('P')">Practise</button>
+<button data-t="W" aria-selected="false" onclick="tab('W')">Worksheet</button>
+</nav>
+
+<main>
+<section class="pg on fm" id="pgL">
+<div class="card"><h2>The parts of a fraction</h2>
+<p>A fraction shows part of a whole. The <b>numerator</b> (top number) says how many parts we have. The <b>denominator</b> (bottom number) says how many equal parts the whole is cut into.</p>
+<p>{3/5} means 3 parts out of 5 equal parts.</p>[[3/5]]</div>
+
+<div class="card"><h2>Unit and non-unit fractions</h2>
+<p>A <b>unit fraction</b> has a numerator of 1, like {1/4} or {1/10}. It is just one equal part.</p>[[1/4]]
+<p>A <b>non-unit fraction</b> has a numerator bigger than 1. {3/4} is 3 lots of {1/4}.</p>[[3/4]]
+<p>The bigger the denominator, the smaller each part is. So {1/10} is smaller than {1/4}.</p></div>
+
+<div class="card"><h2>Proper, improper and mixed fractions</h2>
+<p><b>Proper fraction:</b> the numerator is smaller than the denominator, so it is less than 1 whole, like {3/4}.</p>
+<p><b>Improper fraction:</b> the numerator is the same as or bigger than the denominator, so it is 1 whole or more, like {7/4}.</p>
+<p><b>Mixed number:</b> a whole number and a proper fraction together, like {1 3/4}.</p>
+[[7/4]]<p>{7/4} is 1 whole bar and 3 more quarters, so {7/4} = {1 3/4}.</p>
+<div class="card ex"><h3>Improper to mixed</h3><p>Write {11/4} as a mixed number.</p>
+<p>Divide the numerator by the denominator: 11 ÷ 4 = 2 remainder 3.</p>
+<p>2 is the number of wholes and 3 is the number of quarters left over. So {11/4} = {2 3/4}.</p></div>
+<div class="card ex"><h3>Mixed to improper</h3><p>Write {3 2/5} as an improper fraction.</p>
+<p>Multiply the whole number by the denominator: 3 × 5 = 15. Add the numerator: 15 + 2 = 17.</p>
+<p>Keep the denominator. So {3 2/5} = {17/5}.</p></div></div>
+
+<button class="btn" onclick="goP(['conv'])">Practise this topic</button>
+</section>
+<section class="pg fm" id="pgS">
+<div class="card"><h2>Simplifying fractions</h2>
+<p>A fraction is in its <b>simplest form</b> when no number except 1 goes into both the numerator and the denominator. Simplifying gives a fraction with smaller numbers but exactly the same value.</p>
+<p>{6/9} and {2/3} are equivalent, but {2/3} is simpler. Both bars have the same amount shaded.</p>[[6/9]][[2/3]]</div>
+<div class="card ex"><h3>Divide the top and bottom by the same number</h3>
+<p>Simplify {12/18}. Both numbers are in the 6 times table, so divide the top and the bottom by 6: 12 ÷ 6 = 2 and 18 ÷ 6 = 3.</p>
+<p>{12/18} = {2/3}. The only number that goes into 2 and 3 is 1, so it is finished.</p></div>
+<div class="card ex"><h3>Highest common factor</h3>
+<p>Factors of 12: 1, 2, 3, 4, 6, 12. Factors of 18: 1, 2, 3, 6, 9, 18. The biggest number in both lists is 6, so divide by 6 to simplify in one step.</p>
+<p>If you cannot spot it, use small steps: {24/36} ÷ 2 = {12/18}, then ÷ 3 = {4/6}, then ÷ 2 = {2/3}.</p></div>
+<div class="card ex"><h3>Mixed numbers</h3><p>Only simplify the fraction part. The whole number stays the same: {3 4/10} = {3 2/5}.</p></div>
+<div class="card ex"><h3>Equivalent fractions</h3><p>To make an equivalent fraction, multiply the top and bottom by the same number: {1/2} = {2/4} = {3/6}. Simplifying is the same idea in reverse.</p></div>
+<div class="card warn"><p><b>Common mistake:</b> divide the top and the bottom by the same number. Changing only one of them changes the value.</p></div>
+<button class="btn" onclick="goP(['simp'])">Practise this topic</button>
+</section>
+<section class="pg fm" id="pgA">
+<div class="card ex"><h3>Just starting addition?</h3><p>Begin with fractions that have the same denominator. The start-here set has pictures, small numbers and full steps, and it builds up gently.</p><button class="btn" onclick="goP(['start'])">Start here</button></div>
+<div class="card"><h2>Same denominators: add and subtract</h2>
+<p>When the denominators are the same, the parts are the same size. So we only add or subtract the <b>numerators</b>. The denominator stays the same.</p>
+<div class="card ex"><p>{3/8} + {2/8} = {5/8}</p>[[3/8]][[2/8]][[5/8]]</div>
+<div class="card warn"><p><b>Common mistake:</b> never add the denominators. {3/8} + {2/8} is not {5/16}.</p></div>
+<div class="card ex"><h3>Going over 1 whole</h3><p>{5/6} + {4/6} = {9/6}. This is improper, so change it: 9 ÷ 6 = 1 remainder 3, so {9/6} = {1 3/6}.</p>
+<p>Now simplify the fraction part: divide the top and bottom by 3. {3/6} = {1/2}. The answer is {1 1/2}.</p></div>
+<div class="card ex"><h3>Taking a fraction from a whole number</h3><p>1 − {3/8}: write 1 as {8/8}. Then {8/8} − {3/8} = {5/8}.</p>
+<p>2 − {3/8}: write 2 as {16/8}. Then {16/8} − {3/8} = {13/8} = {1 5/8}.</p></div></div>
+
+<div class="card"><h2>Different denominators</h2>
+<p>You can only add or subtract when the parts are the same size. So first change both fractions so they have a <b>common denominator</b>. This is a number that both denominators go into. The lowest common multiple is the easiest to use.</p>
+<div class="card ex"><h3>Add: {2/3} + {1/4}</h3>
+<p>Multiples of 3: 3, 6, 9, <b>12</b>. Multiples of 4: 4, 8, <b>12</b>. The lowest common denominator is 12.</p>
+<p>{2/3} = {8/12} (multiply top and bottom by 4). {1/4} = {3/12} (multiply top and bottom by 3).</p>
+<p>{8/12} + {3/12} = {11/12}</p></div>
+<div class="card ex"><h3>Subtract: {3/4} − {1/6}</h3>
+<p>The lowest common denominator is 12. {3/4} = {9/12} and {1/6} = {2/12}.</p>
+<p>{9/12} − {2/12} = {7/12}</p></div>
+<div class="card ex"><h3>Shortcut</h3><p>If one denominator is a multiple of the other, you only change one fraction. {1/2} + {1/8}: change {1/2} to {4/8}. Then {4/8} + {1/8} = {5/8}.</p></div></div>
+
+<div class="card"><h2>Mixed numbers</h2>
+<div class="card ex"><h3>Adding: {2 3/4} + {1 1/2}</h3>
+<p>Add the wholes: 2 + 1 = 3. Add the fractions: {3/4} + {2/4} = {5/4} = {1 1/4}.</p>
+<p>Add the extra whole: 3 + 1 = 4. The answer is {4 1/4}.</p></div>
+<div class="card ex"><h3>Subtracting: {3 1/3} − {1 5/6}</h3>
+<p>The fraction {1/3} is smaller than {5/6}, so it is tricky to subtract the parts separately. Change both to improper fractions.</p>
+<p>{3 1/3} = {10/3} and {1 5/6} = {11/6}. Make the denominators match: {10/3} = {20/6}.</p>
+<p>{20/6} − {11/6} = {9/6} = {1 3/6} = {1 1/2}</p></div></div>
+
+<button class="btn" onclick="goP(['same','diff','mix'])">Practise this topic</button>
+</section>
+<section class="pg fm" id="pgM">
+<div class="card ex"><h3>Just starting to multiply fractions?</h3><p>Begin with unit fractions and small whole numbers. The start-here set has pictures and full steps.</p><button class="btn" onclick="goP(['startM'])">Start here</button></div>
+<div class="card"><h2>Fraction × whole number</h2>
+<p>{3/5} × 4 means 4 lots of {3/5}: {3/5} + {3/5} + {3/5} + {3/5} = {12/5}.</p>[[12/5]]
+<p>The quick way: multiply the numerator by the whole number and keep the denominator the same.</p>
+<div class="card ex"><p>{3/5} × 4: 3 × 4 = 12, so the answer is {12/5}. Change to a mixed number: 12 ÷ 5 = 2 remainder 2, so {12/5} = {2 2/5}.</p></div></div>
+<div class="card"><h2>Mixed number × whole number</h2>
+<div class="card ex"><p>{2 1/3} × 3. Change to an improper fraction first: {2 1/3} = {7/3}.</p>
+<p>Multiply the numerator: 7 × 3 = 21. So {7/3} × 3 = {21/3} = 7.</p>
+<p>Another way: 2 × 3 = 6 and {1/3} × 3 = 1, so 6 + 1 = 7.</p></div></div>
+<div class="card"><h2>Fraction × fraction</h2>
+<p>{1/2} × {1/4} means half of a quarter, which is {1/8}.</p>
+<p><b>Rule:</b> multiply the numerators, then multiply the denominators.</p>
+<div class="card ex"><p>{2/3} × {3/5}: 2 × 3 = 6 and 3 × 5 = 15, so {6/15}. Simplify by dividing the top and bottom by 3: {2/5}.</p></div>
+<div class="card ex"><h3>Cancel first</h3><p>In {2/3} × {3/5}, the 3 on the bottom of one fraction and the 3 on the top of the other can both be divided by 3. That leaves {2/1} × {1/5} = {2/5}, with smaller numbers to work with.</p></div></div>
+<div class="card"><h2>Fraction of an amount</h2>
+<p>"Of" means multiply. To find {3/4} of 20: divide by the denominator, 20 ÷ 4 = 5. Then multiply by the numerator, 5 × 3 = 15.</p></div>
+<button class="btn" onclick="goP(['mul'])">Practise this topic</button>
+</section>
+<section class="pg fm" id="pgD">
+<div class="card ex"><h3>Just starting to divide fractions?</h3><p>Begin with sharing a unit fraction into equal parts. The start-here set has pictures and full steps.</p><button class="btn" onclick="goP(['startD'])">Start here</button></div>
+<div class="card"><h2>Dividing a fraction by a whole number</h2>
+<p>{1/3} ÷ 2 means sharing one third into 2 equal parts. Each part is a sixth, so {1/3} ÷ 2 = {1/6}.</p>[[1/3]][[1/6]]
+<p><b>Rule:</b> keep the numerator and multiply the denominator by the whole number.</p>
+<div class="card ex"><p>{3/4} ÷ 2: the denominator is 4 × 2 = 8, so the answer is {3/8}.</p></div>
+<div class="card ex"><p>{4/5} ÷ 2: the denominator is 5 × 2 = 10, so {4/10}. Simplify by dividing by 2: {2/5}.</p></div>
+<div class="card ex"><h3>Check with the inverse</h3><p>Multiplying undoes dividing. {3/8} × 2 = {6/8} = {3/4}, which matches what we started with.</p></div></div>
+<div class="card"><h2>Finding the whole</h2>
+<p>If {1/4} of a length is 36 cm, then the whole length is 4 times as long: 36 × 4 = 144 cm.</p></div>
+<div class="card"><h2>Sharing problems</h2>
+<p>{1/2} of a pizza is shared equally between 3 people. Each person gets {1/2} ÷ 3 = {1/6} of the whole pizza.</p></div>
+<div class="card ex"><h2>Extension: dividing by a fraction</h2>
+<p>This goes beyond the Year 6 SATs, but it is a good challenge. Dividing asks: how many times does it fit?</p>
+<p><b>Whole number ÷ unit fraction.</b> How many {1/4}s are in 3? Each whole has 4 quarters, so 3 ÷ {1/4} = 3 × 4 = 12.</p>[[4/4]]
+<p><b>Same denominators.</b> {6/8} ÷ {3/8}: both are counted in eighths, so just divide the numerators: 6 ÷ 3 = 2.</p>
+<p><b>Different denominators: keep, flip, multiply.</b> Keep the first fraction, flip the second one upside down, and change ÷ to ×.</p>
+<p>{2/3} ÷ {1/6} = {2/3} × {6/1} = {12/3} = 4.</p>
+<p>{3/4} ÷ {3/8} = {3/4} × {8/3} = {24/12} = 2.</p>
+<p>Dividing by a fraction smaller than 1 makes the answer bigger. That is because more of the small pieces fit in.</p>
+<button class="btn" onclick="goP(['ext'])">Practise the extension</button></div>
+<div class="card"><h2>SATs tips</h2>
+<p><b>1.</b> Read how the answer should be given: "simplest form" or "mixed number".</p>
+<p><b>2.</b> To simplify, divide the top and bottom by the same number until you cannot go any further.</p>
+<p><b>3.</b> Check your answer makes sense. If you add two fractions that are each more than a half, the answer must be more than 1.</p>
+<p><b>4.</b> "What fraction is left?" Work out what has been used, then take it away from 1 whole.</p>
+<p><b>5.</b> Fraction of an amount: divide by the denominator, then multiply by the numerator. {3/8} of £40: 40 ÷ 8 = 5, then 5 × 3 = £15.</p>
+<button class="btn" onclick="goP(['div'])">Practise dividing</button></div>
+</section>
+
+<section class="pg" id="pgP">
+<div class="card noprint"><h2>Practice questions</h2>
+<p class="hint">Pick the topics, then press New questions. For fractions use the boxes: whole number, top number, bottom number. If there is no whole number, leave that box empty.</p>
+<div class="ctl" id="chipsP"></div>
+<div class="ctl"><label>How many? <select id="cnt"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></label>
+<button class="btn alt" onclick="newQ()">New questions</button></div></div>
+<div id="score" hidden></div>
+<div id="qs"></div>
+<div class="ctl"><button class="btn" id="chk" onclick="chk()">Check my answers</button><button class="btn alt" onclick="newQ();scrollTo(0,0)">New questions</button></div>
+</section>
+
+<section class="pg" id="pgW">
+<div class="card noprint"><h2>Printable worksheet</h2>
+<p class="hint">Make a fresh worksheet with a matching answer sheet. Use your browser’s print option (Ctrl+P) if the print buttons do not open anything.</p>
+<div class="ctl" id="chipsW"></div>
+<div class="ctl"><label>Questions: <select id="wcnt"><option>8</option><option selected>10</option><option>12</option><option>15</option><option>20</option></select></label>
+<label class="chip"><input type="checkbox" id="wk" checked><span>Show working on answer sheet</span></label></div>
+<div class="ctl"><button class="btn" onclick="mkWs()">Create worksheet</button><button class="btn alt" onclick="pr('ws')">Print worksheet</button><button class="btn alt" onclick="pr('ans')">Print answer sheet</button></div></div>
+<div class="card ws fm" id="sheet"></div>
+<div class="card ws fm" id="answers"></div>
+</section>
+</main></div>
+
+<script>
+const $=i=>document.getElementById(i),R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),P=a=>a[R(0,a.length-1)];
+const G=(a,b)=>b?G(b,a%b):a,L=(a,b)=>a/G(a,b)*b;
+const F=(n,d)=>`{${n}/${d}}`,Mx=(w,n,d)=>w?(n?`{${w} ${n}/${d}}`:`${w}`):F(n,d);
+const bar=(n,d)=>{let h='';for(let r=0;r<Math.ceil(n/d);r++){const c=Math.min(d,n-r*d);h+='<span class="bar">'+Array.from({length:d},(_,i)=>`<i${i<c?' class="on"':''}></i>`).join('')+'</span>'}return h};
+const fmt=s=>String(s).replace(/\[\[(\d+)\/(\d+)\]\]/g,(_,n,d)=>bar(+n,+d)).replace(/\{(?:(\d+) )?([\d☐]+)\/(\d+)\}/g,(_,w,n,d)=>`<span class="mx">${w||''}<span class="fr"><i>${n}</i><b>${d}</b></span></span>`);
+const mix=(N,D)=>{const g=G(N,D);N/=g;D/=g;return{w:Math.floor(N/D),n:N%D,d:D}};
+const DS=[4,5,6,7,8,9,10,12,15,16],NM=['Amir','Beth','Chloe','Dev','Ella','Femi'];
+const PAIRS=()=>{let a,b;do{a=P([2,3,4,5,6,8,10,12]);b=P([2,3,4,5,6,8,10,12])}while(a==b||L(a,b)>24);return[a,b]};
+const cv=(n,d,l)=>d==l?'':`Change ${F(n,d)} into ${l}ths: multiply the top and bottom by ${l/d} to get ${F(n*l/d,l)}.`;
+function fin(N,D){const s=[],w=Math.floor(N/D),n=N%D;
+ if(N>=D)s.push(n?`${F(N,D)} is more than 1 whole. ${D} goes into ${N} ${w} time${w>1?'s':''} with ${n} left over, so it equals ${Mx(w,n,D)}.`:`${F(N,D)} is exactly ${w} whole${w>1?'s':''}.`);
+ const g=n?G(n,D):1;if(g>1)s.push(`Simplify ${F(n,D)}: divide the top and bottom by ${g} to get ${F(n/g,D/g)}.`);
+ return{steps:s,ans:{k:'mix',...mix(N,D)}}}
+function addM(w1,n1,d1,w2,n2,d2){const l=L(d1,d2),a=n1*l/d1,b=n2*l/d2;let W=w1+w2,z=a+b;
+ const s=[`Add the whole numbers first: ${w1} + ${w2} = ${W}.`,d1==d2?`The fractions have the same denominator (${d1}).`:`The denominators are different, so use a common denominator of ${l}.`,cv(n1,d1,l),cv(n2,d2,l),`Add the fractions: ${a} + ${b} = ${z}, so ${F(z,l)}.`];
+ if(z>=l){const e=Math.floor(z/l),r=z%l;s.push(r?`${F(z,l)} is more than 1 whole: it equals ${Mx(e,r,l)}. Add the extra ${e} to the wholes: ${W} + ${e} = ${W+e}.`:`${F(z,l)} is exactly ${e} whole${e>1?'s':''}. Add that to the wholes: ${W} + ${e} = ${W+e}.`);W+=e;z=r}
+ if(z)s.push(...fin(z,l).steps);const m=z?mix(z,l):{n:0,d:1};s.push(`So the answer is ${Mx(W,m.n,m.d)}.`);
+ return{steps:s,ans:{k:'mix',w:W,n:m.n,d:m.d}}}
+function subM(w1,n1,d1,w2,n2,d2){const l=L(d1,d2),N1=w1*d1+n1,N2=w2*d2+n2,a=N1*l/d1,b=N2*l/d2;
+ const s=[`Change the mixed numbers into improper fractions (whole number × denominator, then add the numerator).`,`${Mx(w1,n1,d1)} = ${F(N1,d1)}${w2?` and ${Mx(w2,n2,d2)} = ${F(N2,d2)}`:''}.`,
+ d1==d2?'':`Make the denominators the same (${l}): ${F(N1,d1)} = ${F(a,l)} and ${F(N2,d2)} = ${F(b,l)}.`,`Subtract the numerators: ${a} − ${b} = ${a-b}, which gives ${F(a-b,l)}.`];
+ const f=fin(a-b,l);return{steps:[...s,...f.steps],ans:f.ans}}
+const gens={
+conv1(){const d=P([3,4,5,6,7,8,9,10,12]),w=R(1,5);let n;do n=R(1,d-1);while(G(n,d)>1);const N=w*d+n;
+ return{q:`Write ${F(N,d)} as a mixed number.`,steps:[`Divide the numerator by the denominator: ${N} ÷ ${d} = ${w} remainder ${n}.`,`The ${w} is the number of wholes. The remainder ${n} is the number of ${d}ths left over.`,`So ${F(N,d)} = ${Mx(w,n,d)}.`],ans:{k:'mix',w,n,d}}},
+conv2(){const d=P([3,4,5,6,7,8,9,10,12]),w=R(1,6),n=R(1,d-1),N=w*d+n;
+ return{q:`Write ${Mx(w,n,d)} as an improper fraction.`,steps:[`Multiply the whole number by the denominator: ${w} × ${d} = ${w*d}.`,`Add the numerator: ${w*d} + ${n} = ${N}.`,`Keep the same denominator. So ${Mx(w,n,d)} = ${F(N,d)}.`],ans:{k:'imp',n:N,d}}},
+sA(){const d=P(DS),a=R(2,d-1),b=R(2,d-1),f=fin(a+b,d);
+ return{q:`Work out ${F(a,d)} + ${F(b,d)}. Give your answer in its simplest form.`,steps:[`The denominators are the same (${d}), so the parts are the same size. Just add the numerators: ${a} + ${b} = ${a+b}.`,`Keep the denominator as ${d}. This gives ${F(a+b,d)}.`,...f.steps],ans:f.ans}},
+sS(){const d=P(DS);if(Math.random()<.5){const a=R(3,d-1),b=R(1,a-1),f=fin(a-b,d);
+ return{q:`Work out ${F(a,d)} − ${F(b,d)}. Give your answer in its simplest form.`,steps:[`The denominators are the same (${d}), so subtract the numerators: ${a} − ${b} = ${a-b}.`,`Keep the denominator as ${d}. This gives ${F(a-b,d)}.`,...f.steps],ans:f.ans}}
+ const W=R(1,3),a=R(1,d-1),f=fin(W*d-a,d);
+ return{q:`Work out ${W} − ${F(a,d)}. Give your answer as a mixed number in its simplest form if needed.`,steps:[`Write ${W} as a fraction with denominator ${d}: ${W} = ${F(W*d,d)}.`,`Subtract the numerators: ${W*d} − ${a} = ${W*d-a}, which gives ${F(W*d-a,d)}.`,...f.steps],ans:f.ans}},
+dA(){const[d1,d2]=PAIRS(),n1=R(1,d1-1),n2=R(1,d2-1),l=L(d1,d2),a=n1*l/d1,b=n2*l/d2,f=fin(a+b,l);
+ return{q:`Work out ${F(n1,d1)} + ${F(n2,d2)}. Give your answer in its simplest form.`,steps:[`The denominators are different (${d1} and ${d2}), so find a common denominator. The lowest number that both ${d1} and ${d2} go into is ${l}.`,cv(n1,d1,l),cv(n2,d2,l),`Now the denominators match. Add the numerators: ${a} + ${b} = ${a+b}, so the sum is ${F(a+b,l)}.`,...f.steps],ans:f.ans}},
+dS(){let d1,d2,n1,n2,l,a,b;do{[d1,d2]=PAIRS();n1=R(1,d1-1);n2=R(1,d2-1);l=L(d1,d2);a=n1*l/d1;b=n2*l/d2}while(a<=b);const f=fin(a-b,l);
+ return{q:`Work out ${F(n1,d1)} − ${F(n2,d2)}. Give your answer in its simplest form.`,steps:[`The denominators are different (${d1} and ${d2}), so find a common denominator. The lowest number that both ${d1} and ${d2} go into is ${l}.`,cv(n1,d1,l),cv(n2,d2,l),`Now subtract the numerators: ${a} − ${b} = ${a-b}, so the difference is ${F(a-b,l)}.`,...f.steps],ans:f.ans}},
+mA(){const[d1,d2]=PAIRS(),w1=R(1,5),w2=R(1,5),n1=R(1,d1-1),n2=R(1,d2-1),r=addM(w1,n1,d1,w2,n2,d2);
+ return{q:`Work out ${Mx(w1,n1,d1)} + ${Mx(w2,n2,d2)}. Give your answer as a mixed number in its simplest form.`,...r}},
+mS(){let d1,d2,w1,w2,n1,n2;do{[d1,d2]=PAIRS();w1=R(2,6);w2=R(1,w1-1);n1=R(1,d1-1);n2=R(1,d2-1)}while((w1*d1+n1)*d2<=(w2*d2+n2)*d1);
+ return{q:`Work out ${Mx(w1,n1,d1)} − ${Mx(w2,n2,d2)}. Give your answer as a mixed number in its simplest form.`,...subM(w1,n1,d1,w2,n2,d2)}},
+w(){const t=R(1,4);
+ if(t==1){let d1,d2,n1,n2,l,a,b;do{[d1,d2]=PAIRS();n1=R(1,d1-1);n2=R(1,d2-1);l=L(d1,d2);a=n1*l/d1;b=n2*l/d2}while(a+b>=l);
+  const[x,y]=NM.slice().sort(()=>Math.random()-.5),it=P(['pizza','cake','pie']),f=fin(l-a-b,l);
+  return{q:`${x} eats ${F(n1,d1)} of a ${it} and ${y} eats ${F(n2,d2)} of the same ${it}. What fraction of the ${it} is left? Give your answer in its simplest form.`,steps:[`First find how much has been eaten altogether. Use a common denominator of ${l}.`,cv(n1,d1,l),cv(n2,d2,l),`${F(a,l)} + ${F(b,l)} = ${F(a+b,l)} has been eaten.`,`The whole ${it} is 1 = ${F(l,l)}. Subtract: ${l} − ${a+b} = ${l-a-b}, which gives ${F(l-a-b,l)} left.`,...f.steps],ans:f.ans}}
+ if(t==2){const[d1,d2]=PAIRS(),w=R(2,5),n1=R(1,d1-1),n2=R(1,d2-1);
+  return{q:`A ribbon is ${Mx(w,n1,d1)} metres long. ${F(n2,d2)} metres is cut off. How many metres of ribbon are left? Give your answer as a mixed number in its simplest form.`,...subM(w,n1,d1,0,n2,d2)}}
+ if(t==3){const d=P([3,4,5,6,8,10]),a=R(2,d-1),u=R(3,12),N=d*u,[nm,He,he]=P([['Zara','She','she'],['Leo','He','he'],['Maya','She','she']]);
+  return{q:`${nm} has £${N}. ${He} spends ${F(a,d)} of the money on a book. How much money does ${he} have left?`,steps:[`Find ${F(1,d)} of £${N}: ${N} ÷ ${d} = ${u}.`,`${F(a,d)} is ${a} lots of that: ${a} × ${u} = ${a*u}. So the book costs £${a*u}.`,`Money left: ${N} − ${a*u} = ${N-a*u}. ${nm} has £${N-a*u} left.`],ans:{k:'num',v:N-a*u,pre:'£'}}}
+ const[d1,d2]=PAIRS(),w1=R(1,4),w2=R(1,4),n1=R(1,d1-1),n2=R(1,d2-1);
+ return{q:`A recipe uses ${Mx(w1,n1,d1)} litres of milk for soup and ${Mx(w2,n2,d2)} litres for a sauce. How many litres of milk is that altogether? Give your answer as a mixed number in its simplest form.`,...addM(w1,n1,d1,w2,n2,d2)}},
+e(){const t=R(0,2);
+ if(t==0){const d=P([3,4,5,6,7,8]),n=R(1,d-1),k=R(2,6);return{q:`Find the missing number: ${F(n,d)} = ${F('☐',d*k)}`,steps:[`Look at the bottoms: ${d} × ${k} = ${d*k}. The denominator was multiplied by ${k}.`,`Do the same to the top: ${n} × ${k} = ${n*k}.`],ans:{k:'num',v:n*k}}}
+ const d=P([5,6,7,8,9,10,12]),c=R(4,d-1),a=R(1,c-2),b=c-a;
+ return t==1?{q:`Find the missing number: ${F(a,d)} + ${F('☐',d)} = ${F(c,d)}`,steps:[`The denominators are the same, so only the numerators change.`,`The missing numerator is what you add to ${a} to make ${c}: ${c} − ${a} = ${b}.`],ans:{k:'num',v:b}}
+ :{q:`Find the missing number: ${F(c,d)} − ${F('☐',d)} = ${F(a,d)}`,steps:[`The denominators are the same, so only the numerators change.`,`The missing numerator is what you take from ${c} to leave ${a}: ${c} − ${a} = ${b}.`],ans:{k:'num',v:b}}}
+};
+const fac=n=>[...Array(n)].map((_,i)=>i+1).filter(i=>n%i==0);
+Object.assign(gens,{
+simp1(){let n0,d0,g,N,D;do{d0=R(2,9);n0=R(1,d0-1);g=R(2,7);N=n0*g;D=d0*g}while(G(n0,d0)>1||D>60);
+ return{q:`Write ${F(N,D)} in its simplest form.`,steps:[`Find the highest common factor of ${N} and ${D}. Factors of ${N}: ${fac(N).join(', ')}. Factors of ${D}: ${fac(D).join(', ')}.`,`The biggest number in both lists is ${g}.`,`Divide the top and bottom by ${g}: ${N} ÷ ${g} = ${n0} and ${D} ÷ ${g} = ${d0}.`,`So ${F(N,D)} = ${F(n0,d0)}.`],ans:{k:'imp',n:n0,d:d0}}},
+simp2(){let n0,d0,g,w=R(1,5);do{d0=R(2,8);n0=R(1,d0-1);g=R(2,5)}while(G(n0,d0)>1);const N=n0*g,D=d0*g;
+ return{q:`Write ${Mx(w,N,D)} as a mixed number with the fraction in its simplest form.`,steps:[`Keep the whole number (${w}) and simplify the fraction part ${F(N,D)}.`,`The highest common factor of ${N} and ${D} is ${g}. Divide the top and bottom by ${g}: ${F(n0,d0)}.`,`So ${Mx(w,N,D)} = ${Mx(w,n0,d0)}.`],ans:{k:'mix',w,n:n0,d:d0}}},
+mW(){const d=P([3,4,5,6,7,8,9,10,12]),n=R(1,d-1),k=R(2,9),f=fin(n*k,d),sw=Math.random()<.5;
+ return{q:`Work out ${sw?`${k} × ${F(n,d)}`:`${F(n,d)} × ${k}`}. Give your answer as a mixed number in its simplest form.`,steps:[`Multiply the numerator by the whole number: ${n} × ${k} = ${n*k}.`,`The denominator stays the same, so the answer is ${F(n*k,d)}.`,...f.steps],ans:f.ans}},
+mF(){let n1,d1,n2,d2;do{d1=R(2,8);d2=R(2,8);n1=R(1,d1-1);n2=R(1,d2-1)}while(d1*d2>48);const N=n1*n2,D=d1*d2,f=fin(N,D);
+ return{q:`Work out ${F(n1,d1)} × ${F(n2,d2)}. Give your answer in its simplest form.`,steps:[`Multiply the numerators: ${n1} × ${n2} = ${N}.`,`Multiply the denominators: ${d1} × ${d2} = ${D}.`,`This gives ${F(N,D)}.`,...f.steps],ans:f.ans}},
+mM(){const d=P([2,3,4,5,6,8]),w=R(1,4),n=R(1,d-1),k=R(2,6),N=w*d+n,f=fin(N*k,d);
+ return{q:`Work out ${Mx(w,n,d)} × ${k}. Give your answer as a mixed number in its simplest form.`,steps:[`Change ${Mx(w,n,d)} into an improper fraction: ${w} × ${d} + ${n} = ${N}, so ${F(N,d)}.`,`Multiply the numerator by ${k}: ${N} × ${k} = ${N*k}. This gives ${F(N*k,d)}.`,...f.steps],ans:f.ans}},
+mO(){const d=P([3,4,5,6,8,10]),a=R(1,d-1),u=R(2,12),N=d*u;
+ return{q:`Work out ${F(a,d)} of ${N}.`,steps:[`Find ${F(1,d)} of ${N} by dividing by ${d}: ${N} ÷ ${d} = ${u}.`,`Multiply by the numerator: ${u} × ${a} = ${u*a}.`],ans:{k:'num',v:u*a}}},
+vD(){const d=P([2,3,4,5,6,8]),n=R(1,d-1),k=R(2,6),f=fin(n,d*k);
+ return{q:`Work out ${F(n,d)} ÷ ${k}. Give your answer in its simplest form.`,steps:[`Dividing by ${k} cuts each part into ${k} smaller parts, so multiply the denominator by ${k}: ${d} × ${k} = ${d*k}.`,`The numerator stays the same. This gives ${F(n,d*k)}.`,...f.steps],ans:f.ans}},
+vW(){if(Math.random()<.6){const d=P([2,3,4,5,6]),n=R(1,d-1),k=R(2,5),f=fin(n,d*k),it=P(['pizza','cake','chocolate bar']);
+  return{q:`There is ${F(n,d)} of a ${it} left. It is shared equally between ${k} people. What fraction of the whole ${it} does each person get? Give your answer in its simplest form.`,steps:[`Sharing equally is dividing: ${F(n,d)} ÷ ${k}.`,`Multiply the denominator by ${k}: ${d} × ${k} = ${d*k}. This gives ${F(n,d*k)}.`,...f.steps],ans:f.ans}}
+ const d=P([3,4,5,6,8,10]),u=R(3,15);return{q:`${F(1,d)} of a rope is ${u} cm long. How long is the whole rope, in centimetres?`,steps:[`${F(1,d)} of the rope is ${u} cm, so the whole rope is ${d} times as long.`,`${u} × ${d} = ${u*d}. The whole rope is ${u*d} cm.`],ans:{k:'num',v:u*d}}},
+vM(){const d=R(2,6),k=R(2,6);return{q:`Find the missing number: ${F(1,d)} ÷ ☐ = ${F(1,d*k)}`,steps:[`The numerator stays the same, so only the denominator changes.`,`The denominator went from ${d} to ${d*k}: ${d} × ${k} = ${d*k}. So the missing number is ${k}.`],ans:{k:'num',v:k}}}
+});
+Object.assign(gens,{
+st1(){let d,a,b;do{d=R(4,10);a=R(1,d-2);b=R(1,d-1-a)}while(G(a+b,d)>1);
+ return{q:`Work out ${F(a,d)} + ${F(b,d)}. [[${a}/${d}]][[${b}/${d}]]`,steps:[`The denominators are the same (${d}), so the parts are the same size.`,`Add the numerators: ${a} + ${b} = ${a+b}.`,`Keep the denominator as ${d}. The answer is ${F(a+b,d)}.`],ans:fin(a+b,d).ans}},
+st2(){let d,a,b;do{d=R(4,12);a=R(1,d-2);b=R(1,d-1-a)}while(a+b>=d);const f=fin(a+b,d);
+ return{q:`Work out ${F(a,d)} + ${F(b,d)}. Give your answer in its simplest form.`,steps:[`The denominators are the same (${d}), so add the numerators: ${a} + ${b} = ${a+b}.`,`Keep the denominator as ${d}. This gives ${F(a+b,d)}.`,...f.steps],ans:f.ans}},
+st3(){let d,a,b;do{d=R(3,8);a=R(2,d-1);b=R(2,d-1)}while(a+b<=d);const f=fin(a+b,d);
+ return{q:`Work out ${F(a,d)} + ${F(b,d)}. Give your answer as a mixed number in its simplest form.`,steps:[`The denominators are the same (${d}), so add the numerators: ${a} + ${b} = ${a+b}.`,`Keep the denominator as ${d}. This gives ${F(a+b,d)}.`,...f.steps],ans:f.ans}},
+st4(){let d,a,b;do{d=R(4,10);a=R(1,d-2);b=R(1,d-1-a)}while(G(a+b,d)>1);const[x,y]=NM.slice().sort(()=>Math.random()-.5),it=P(['pizza','cake','pie']);
+ return{q:`${x} eats ${F(a,d)} of a ${it} and ${y} eats ${F(b,d)} of the same ${it}. What fraction of the ${it} have they eaten altogether?`,steps:[`The word altogether tells us to add.`,`The denominators are the same (${d}), so add the numerators: ${a} + ${b} = ${a+b}.`,`Keep the denominator as ${d}. They have eaten ${F(a+b,d)} of the ${it}.`],ans:fin(a+b,d).ans}},
+xD1(){const k=R(2,6),d=R(2,10);
+ return{q:`How many ${F(1,d)}s are in ${k}? Work out ${k} ÷ ${F(1,d)}.`,steps:[`There are ${d} lots of ${F(1,d)} in 1 whole.`,`So in ${k} wholes there are ${k} × ${d} = ${k*d}.`,`${k} ÷ ${F(1,d)} = ${k*d}.`],ans:{k:'num',v:k*d}}},
+xD2(){const a=R(2,5),m=R(2,6),b=a*m;
+ return{q:`Work out ${F(1,a)} ÷ ${F(1,b)}.`,steps:[`Change ${F(1,a)} into ${b}ths: multiply the top and bottom by ${m} to get ${F(m,b)}.`,`Now count how many ${F(1,b)}s fit into ${F(m,b)}. There are ${m}.`,`${F(1,a)} ÷ ${F(1,b)} = ${m}.`],ans:{k:'num',v:m}}},
+xD3(){if(Math.random()<.5){const d=R(3,10),n1=R(1,d-1),n2=R(1,d-1),f=fin(n1,n2);
+  return{q:`Work out ${F(n1,d)} ÷ ${F(n2,d)}. Give your answer in its simplest form.`,steps:[`Both fractions are counted in ${d}ths, so just divide the numerators: ${n1} ÷ ${n2} = ${F(n1,n2)}.`,...f.steps],ans:f.ans}}
+ const d1=R(2,6),d2=R(2,6),n1=R(1,d1-1),n2=R(1,d2-1),N=n1*d2,D=d1*n2,f=fin(N,D);
+ return{q:`Work out ${F(n1,d1)} ÷ ${F(n2,d2)}. Give your answer in its simplest form.`,steps:[`Keep ${F(n1,d1)}. Flip ${F(n2,d2)} upside down to get ${F(d2,n2)}. Change the ÷ into a ×.`,`Multiply the numerators: ${n1} × ${d2} = ${N}. Multiply the denominators: ${d1} × ${n2} = ${D}.`,`This gives ${F(N,D)}.`,...f.steps],ans:f.ans}}
+});
+Object.assign(gens,{
+sm1(){let d,k;do{d=R(3,9);k=R(2,d-1)}while(G(k,d)>1);
+ return{q:`Work out ${F(1,d)} × ${k}. [[1/${d}]]`,steps:[`${F(1,d)} × ${k} means ${k} lots of ${F(1,d)}.`,`${k} lots of one ${d}th is ${k} ${d}ths.`,`The answer is ${F(k,d)}.`],ans:fin(k,d).ans}},
+sm2(){const d=R(2,6),u=R(2,9),N=d*u;
+ return{q:`Find ${F(1,d)} of ${N}.`,steps:[`${F(1,d)} of ${N} means ${N} ÷ ${d}.`,`${N} ÷ ${d} = ${u}.`],ans:{k:'num',v:u}}},
+sm3(){let d,n,k;do{d=R(5,10);n=R(2,3);k=R(2,3)}while(n*k>=d||G(n*k,d)>1);
+ return{q:`Work out ${F(n,d)} × ${k}.`,steps:[`Multiply the numerator by ${k}: ${n} × ${k} = ${n*k}.`,`The denominator stays as ${d}. The answer is ${F(n*k,d)}.`],ans:fin(n*k,d).ans}},
+sm4(){const d=R(3,5),a=R(2,d-1),u=R(2,8),N=d*u;
+ return{q:`Find ${F(a,d)} of ${N}.`,steps:[`First find ${F(1,d)} of ${N}: ${N} ÷ ${d} = ${u}.`,`${F(a,d)} is ${a} lots of that: ${u} × ${a} = ${u*a}.`],ans:{k:'num',v:u*a}}},
+sd1(){const d=R(2,5),k=R(2,4);
+ return{q:`Work out ${F(1,d)} ÷ ${k}. [[1/${d}]]`,steps:[`Dividing by ${k} splits the ${F(1,d)} into ${k} equal smaller parts.`,`Multiply the denominator by ${k}: ${d} × ${k} = ${d*k}.`,`The answer is ${F(1,d*k)}.`],ans:fin(1,d*k).ans}},
+sd2(){const d=R(2,5),k=R(2,4),it=P(['pizza','cake','pie']);
+ return{q:`${F(1,d)} of a ${it} is left. It is shared equally between ${k} people. What fraction of the whole ${it} does each person get?`,steps:[`Sharing equally means dividing: ${F(1,d)} ÷ ${k}.`,`Multiply the denominator by ${k}: ${d} × ${k} = ${d*k}.`,`Each person gets ${F(1,d*k)} of the ${it}.`],ans:fin(1,d*k).ans}},
+sd3(){let d,k,m;do{d=R(5,12);k=R(2,3);m=R(1,3)}while(m*k>=d||G(m,d)>1);const n=m*k;
+ return{q:`Work out ${F(n,d)} ÷ ${k}.`,steps:[`The numerator ${n} can be divided by ${k} exactly: ${n} ÷ ${k} = ${m}.`,`The denominator stays as ${d}. The answer is ${F(m,d)}.`,`Check: ${F(m,d)} × ${k} = ${F(n,d)}.`],ans:fin(m,d).ans}},
+sd4(){let d,n,k;do{d=R(3,6);n=R(2,d-1);k=R(2,4)}while(G(n,d)>1||G(n,k)>1);
+ return{q:`Work out ${F(n,d)} ÷ ${k}.`,steps:[`${n} cannot be divided by ${k} exactly, so split each part into ${k} smaller parts instead.`,`Multiply the denominator by ${k}: ${d} × ${k} = ${d*k}.`,`The answer is ${F(n,d*k)}.`],ans:fin(n,d*k).ans}}
+});
+const TOP={start:['Start here: adding same denominators',['st1','st2','st3','st4']],startM:['Start here: multiplying',['sm1','sm2','sm3','sm4']],startD:['Start here: dividing',['sd1','sd2','sd3','sd4']],conv:['Mixed and improper',['conv1','conv2']],simp:['Simplifying',['simp1','simp2']],same:['Same denominators',['sA','sS']],diff:['Different denominators',['dA','dS']],mix:['Mixed number add and subtract',['mA','mS']],mul:['Multiplying',['mW','mF','mM','mO']],div:['Dividing',['vD','vW','vM']],word:['Word problems',['w']],eq:['Missing numbers',['e']],ext:['Extension: dividing by a fraction',['xD1','xD2','xD3']]};
+const sel=id=>{const a=[...document.querySelectorAll(`#${id} input:checked`)].map(i=>i.value);return a.length?a:Object.keys(TOP)};
+const make=(n,keys)=>{keys=keys.slice().sort(()=>Math.random()-.5);return Array.from({length:n},(_,i)=>gens[P(TOP[keys[i%keys.length]][1])]())};
+const at=a=>a.k=='num'?(a.pre||'')+a.v:a.k=='imp'?F(a.n,a.d):Mx(a.w,a.n,a.d);
+const I='<input class="in" inputmode="numeric" autocomplete="off">';
+const wd=q=>{const a=q.ans;return a.k=='num'?`${a.pre||''}<input class="in" inputmode="numeric" autocomplete="off" aria-label="answer">`:a.k=='imp'?`<span class="fr inp">${I}<s></s>${I}</span>`:`${I}<span class="fr inp">${I}<s></s>${I}</span>`};
+const li=q=>q.steps.filter(Boolean).map(s=>`<li>${fmt(s)}</li>`).join('');
+let QS=[],WS=[];
+function newQ(){QS=make(+$('cnt').value,sel('chipsP'));$('qs').innerHTML=QS.map((q,i)=>`<div class="q" id="q${i}"><div class="qt"><span class="no">${i+1}</span><div>${fmt(q.q)}</div></div><div class="aw">${wd(q)}</div><div class="fb"></div></div>`).join('');$('score').hidden=true;$('chk').disabled=false}
+function mark(q,v){const a=q.ans;if(!v.join(''))return{ok:0,note:'You did not write an answer.'};
+ if(a.k=='num')return{ok:parseFloat(v[0])==a.v};
+ if(a.k=='imp')return{ok:+v[0]==a.n&&+v[1]==a.d};
+ const w=+v[0]||0,n=+v[1]||0,d=+v[2]||0;if(n&&!d)return{ok:0,note:'A fraction needs a top and a bottom number.'};
+ const same=n?(w*d+n)*a.d==(a.w*a.d+a.n)*d:(a.n==0&&w==a.w),ok=same&&w==a.w&&(a.n?(n==a.n&&d==a.d):!n);
+ return{ok,note:same&&!ok?'Your answer has the right value, but it must be a mixed number in its simplest form.':''}}
+function chk(){let ok=0;QS.forEach((q,i)=>{const e=$('q'+i),ins=[...e.querySelectorAll('input')],r=mark(q,ins.map(x=>x.value.trim()));
+ e.classList.add(r.ok?'good':'bad');ins.forEach(x=>x.disabled=true);ok+=r.ok?1:0;
+ e.querySelector('.fb').innerHTML=r.ok?'<b>Correct! ✔</b>':`<b>Not quite.</b> ${r.note||''}<div>The correct answer is <b>${fmt(at(q.ans))}</b>.</div><p class="hd">Here is how to work it out:</p><ol>${li(q)}</ol>`});
+ const s=$('score'),p=ok/QS.length;s.hidden=false;s.textContent=`You scored ${ok} out of ${QS.length}. ${p==1?'Perfect!':p>=.7?'Great work!':'Read the working for each wrong answer, then try a new set.'}`;$('chk').disabled=true;s.scrollIntoView({block:'center'})}
+const bx=q=>{const a=q.ans,f='<span class="fr"><span class="bx"></span><s></s><span class="bx"></span></span>';return a.k=='num'?(a.pre||'')+'<span class="bx wide"></span>':a.k=='imp'?f:'<span class="bx"></span>'+f};
+function mkWs(){WS=make(+$('wcnt').value,sel('chipsW'));const w=$('wk').checked;
+ $('sheet').innerHTML=`<h2>Fractions worksheet</h2><p class="ln">Name: ____________________ Date: ____________ Score: ____ / ${WS.length}</p><p class="hint">Give fraction answers in the boxes: whole number, top, bottom. Show your working on paper.</p><ol class="wq">${WS.map(q=>`<li><div>${fmt(q.q)}</div><div class="wa">${bx(q)}</div></li>`).join('')}</ol>`;
+ $('answers').innerHTML=`<h2>Answer sheet</h2><ol>${WS.map(q=>`<li><b>${fmt(at(q.ans))}</b>${w?`<ol class="wk">${li(q)}</ol>`:''}</li>`).join('')}</ol>`}
+function pr(m){if(!WS.length)mkWs();document.body.className='p-'+m;window.print()}
+onafterprint=()=>document.body.className='';
+function goP(k){document.querySelectorAll('#chipsP input').forEach(i=>i.checked=k.includes(i.value));newQ();tab('P')}
+function tab(t){document.querySelectorAll('.pg').forEach(p=>p.classList.toggle('on',p.id=='pg'+t));document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t==t));scrollTo(0,0)}
+['chipsP','chipsW'].forEach(id=>$(id).innerHTML=Object.entries(TOP).map(([k,[t]])=>`<label class="chip"><input type="checkbox" value="${k}" checked><span>${t}</span></label>`).join(''));
+document.querySelectorAll('.fm:not(.ws)').forEach(e=>e.innerHTML=fmt(e.innerHTML));
+newQ();mkWs();
+</script></body></html>
