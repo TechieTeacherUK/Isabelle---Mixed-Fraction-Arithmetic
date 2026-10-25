@@ -21,8 +21,10 @@ header .bar{border-color:#fff}header .bar i{border-color:#fff}header .bar i.on{b
 nav{display:flex;gap:6px;margin:18px 0;overflow-x:auto;padding-bottom:4px}
 nav button{flex:1 0 auto;white-space:nowrap;font:800 1rem "Baloo 2",Nunito,sans-serif;padding:10px 12px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;cursor:pointer}
 nav button[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:#fff}
-:root:not([data-theme="light"]) nav button[aria-selected=true]{color:#10142b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button[aria-selected=true]{color:#10142b}}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+header .wrap{position:relative}#thm{position:absolute;top:0;right:16px;font:800 .9rem Nunito,sans-serif;padding:6px 12px;border-radius:99px;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer}
+:root[data-theme="dark"] nav button[aria-selected=true],:root[data-theme="dark"] .chip input:checked+span{color:#10142b}
 .pg{display:none}.pg.on{display:block}
 .card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
 .card.ex{border-left:8px solid var(--acc)}.card.warn{border-left:8px solid var(--bad)}
@@ -36,10 +38,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .chip input{position:absolute;opacity:0}
 .chip span{display:inline-block;padding:6px 12px;border:2px solid var(--line);border-radius:99px;cursor:pointer;font-weight:700;font-size:.95rem}
 .chip input:checked+span{background:var(--acc);border-color:var(--acc);color:#fff}
-:root:not([data-theme="light"]) .chip input:checked+span{color:#10142b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip input:checked+span{color:#10142b}}
 .chip input:focus-visible+span{outline:3px solid var(--sun)}
 .btn{font:800 1rem "Baloo 2",Nunito,sans-serif;padding:10px 18px;border-radius:12px;border:2px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
-:root:not([data-theme="light"]) .btn{color:#10142b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#10142b}:root:not([data-theme="light"]) .btn.alt{color:var(--acc)}}:root[data-theme="dark"] .btn{color:#10142b}:root[data-theme="dark"] .btn.alt{color:var(--acc)}
 .btn.alt{background:transparent;color:var(--acc)}.btn:disabled{opacity:.45;cursor:default}
 select{font:inherit;padding:6px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
 .hint{color:var(--mut);font-size:.9rem;margin:4px 0}
@@ -61,6 +63,11 @@ select{font:inherit;padding:6px;border-radius:8px;border:2px solid var(--line);b
 .ln{border-bottom:2px solid var(--line);padding-bottom:8px}
 .wk{font-size:.9rem;color:var(--mut);margin:2px 0 8px}
 .hid{display:none}
+.sel{gap:14px}.sel label{font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;max-width:100%}.sel select{max-width:100%;min-width:0}
+@media(max-width:560px){.sel label{flex:1 1 100%}.sel select{flex:1;width:100%}}
+.btn.big{padding:12px 30px;font-size:1.15rem}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:99px;overflow:hidden}.seg button{font:800 .95rem Nunito,sans-serif;padding:6px 16px;border:0;background:transparent;color:var(--ink);cursor:pointer}.seg button[aria-pressed=true]{background:var(--acc);color:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#10142b}}:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#10142b}
 @media(max-width:560px){.aw,.fb{margin-left:0}}
 @media(prefers-reduced-motion:no-preference){.q{transition:border-color .2s}}
 @media print{
@@ -71,6 +78,7 @@ select{font:inherit;padding:6px;border-radius:8px;border:2px solid var(--line);b
 </style></head><body>
 <header class="fm"><div class="wrap">
 <h1>Fractions</h1>
+<button id="thm" type="button" class="noprint" aria-label="Switch between light and dark mode"></button>
 <p>Year 6 maths: types of fractions, simplifying, adding, subtracting, multiplying and dividing.</p>
 [[1/2]][[3/4]][[5/6]]
 </div></header>
@@ -209,22 +217,22 @@ select{font:inherit;padding:6px;border-radius:8px;border:2px solid var(--line);b
 
 <section class="pg" id="pgP">
 <div class="card noprint"><h2>Practice questions</h2>
-<p class="hint">Pick the topics, then press New questions. For fractions use the boxes: whole number, top number, bottom number. If there is no whole number, leave that box empty.</p>
-<div class="ctl" id="chipsP"></div>
-<div class="ctl"><label>How many? <select id="cnt"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></label>
-<button class="btn alt" onclick="newQ()">New questions</button></div></div>
+<div class="ctl sel"><label>Topic <select id="topicP" onchange="newQ()"></select></label><label>Questions <select id="cnt" onchange="newQ()"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></label></div><p class="hint">For fractions, use the boxes: whole number, top, bottom. Leave the whole number empty if there isn’t one.</p>
+
+<div hidden>
+</div></div>
 <div id="score" hidden></div>
 <div id="qs"></div>
-<div class="ctl"><button class="btn" id="chk" onclick="chk()">Check my answers</button><button class="btn alt" onclick="newQ();scrollTo(0,0)">New questions</button></div>
+<div class="ctl"><button class="btn big" id="chk" onclick="btnP()">Check my answers</button></div>
 </section>
 
 <section class="pg" id="pgW">
 <div class="card noprint"><h2>Printable worksheet</h2>
-<p class="hint">Make a fresh worksheet with a matching answer sheet. Use your browser’s print option (Ctrl+P) if the print buttons do not open anything.</p>
-<div class="ctl" id="chipsW"></div>
-<div class="ctl"><label>Questions: <select id="wcnt"><option>8</option><option selected>10</option><option>12</option><option>15</option><option>20</option></select></label>
-<label class="chip"><input type="checkbox" id="wk" checked><span>Show working on answer sheet</span></label></div>
-<div class="ctl"><button class="btn" onclick="mkWs()">Create worksheet</button><button class="btn alt" onclick="pr('ws')">Print worksheet</button><button class="btn alt" onclick="pr('ans')">Print answer sheet</button></div></div>
+<div class="ctl sel"><label>Topic <select id="topicW" onchange="mkWs()"></select></label><label>Questions <select id="wcnt" onchange="mkWs()"><option>8</option><option selected>10</option><option>12</option><option>15</option><option>20</option></select></label></div>
+
+<div hidden>
+<input type="checkbox" id="wk" checked></div>
+<div class="ctl"><div class="seg" role="group" aria-label="Choose what to show"><button id="vws" aria-pressed="true" onclick="view('ws')">Worksheet</button><button id="vans" aria-pressed="false" onclick="view('ans')">Answers</button></div><button class="btn" onclick="pr()">Print</button><button class="btn alt" onclick="mkWs()">New worksheet</button></div><p class="hint">Print gives you the page you are looking at. If printing does not start, press Ctrl+P.</p></div>
 <div class="card ws fm" id="sheet"></div>
 <div class="card ws fm" id="answers"></div>
 </section>
@@ -251,7 +259,7 @@ function addM(w1,n1,d1,w2,n2,d2){const l=L(d1,d2),a=n1*l/d1,b=n2*l/d2;let W=w1+w
  return{steps:s,ans:{k:'mix',w:W,n:m.n,d:m.d}}}
 function subM(w1,n1,d1,w2,n2,d2){const l=L(d1,d2),N1=w1*d1+n1,N2=w2*d2+n2,a=N1*l/d1,b=N2*l/d2;
  const s=[`Change the mixed numbers into improper fractions (whole number × denominator, then add the numerator).`,`${Mx(w1,n1,d1)} = ${F(N1,d1)}${w2?` and ${Mx(w2,n2,d2)} = ${F(N2,d2)}`:''}.`,
- d1==d2?'':`Make the denominators the same (${l}): ${F(N1,d1)} = ${F(a,l)} and ${F(N2,d2)} = ${F(b,l)}.`,`Subtract the numerators: ${a} − ${b} = ${a-b}, which gives ${F(a-b,l)}.`];
+ d1==d2?'':`Make the denominators the same (${l}): ${[d1!=l?`${F(N1,d1)} = ${F(a,l)}`:'',d2!=l?`${F(N2,d2)} = ${F(b,l)}`:''].filter(Boolean).join(' and ')}.`,`Subtract the numerators: ${a} − ${b} = ${a-b}, which gives ${F(a-b,l)}.`];
  const f=fin(a-b,l);return{steps:[...s,...f.steps],ans:f.ans}}
 const gens={
 conv1(){const d=P([3,4,5,6,7,8,9,10,12]),w=R(1,5);let n;do n=R(1,d-1);while(G(n,d)>1);const N=w*d+n;
@@ -353,7 +361,7 @@ const I='<input class="in" inputmode="numeric" autocomplete="off">';
 const wd=q=>{const a=q.ans;return a.k=='num'?`${a.pre||''}<input class="in" inputmode="numeric" autocomplete="off" aria-label="answer">`:a.k=='imp'?`<span class="fr inp">${I}<s></s>${I}</span>`:`${I}<span class="fr inp">${I}<s></s>${I}</span>`};
 const li=q=>q.steps.filter(Boolean).map(s=>`<li>${fmt(s)}</li>`).join('');
 let QS=[],WS=[];
-function newQ(){QS=make(+$('cnt').value,sel('chipsP'));$('qs').innerHTML=QS.map((q,i)=>`<div class="q" id="q${i}"><div class="qt"><span class="no">${i+1}</span><div>${fmt(q.q)}</div></div><div class="aw">${wd(q)}</div><div class="fb"></div></div>`).join('');$('score').hidden=true;$('chk').disabled=false}
+function newQ(){QS=make(+$('cnt').value,keysOf('topicP'));$('qs').innerHTML=QS.map((q,i)=>`<div class="q" id="q${i}"><div class="qt"><span class="no">${i+1}</span><div>${fmt(q.q)}</div></div><div class="aw">${wd(q)}</div><div class="fb"></div></div>`).join('');$('score').hidden=true;done=false;$('chk').textContent='Check my answers'}
 function mark(q,v){const a=q.ans;if(!v.join(''))return{ok:0,note:'You did not write an answer.'};
  if(a.k=='num')return{ok:parseFloat(v[0])==a.v};
  if(a.k=='imp')return{ok:+v[0]==a.n&&+v[1]==a.d};
@@ -363,16 +371,26 @@ function mark(q,v){const a=q.ans;if(!v.join(''))return{ok:0,note:'You did not wr
 function chk(){let ok=0;QS.forEach((q,i)=>{const e=$('q'+i),ins=[...e.querySelectorAll('input')],r=mark(q,ins.map(x=>x.value.trim()));
  e.classList.add(r.ok?'good':'bad');ins.forEach(x=>x.disabled=true);ok+=r.ok?1:0;
  e.querySelector('.fb').innerHTML=r.ok?'<b>Correct! ✔</b>':`<b>Not quite.</b> ${r.note||''}<div>The correct answer is <b>${fmt(at(q.ans))}</b>.</div><p class="hd">Here is how to work it out:</p><ol>${li(q)}</ol>`});
- const s=$('score'),p=ok/QS.length;s.hidden=false;s.textContent=`You scored ${ok} out of ${QS.length}. ${p==1?'Perfect!':p>=.7?'Great work!':'Read the working for each wrong answer, then try a new set.'}`;$('chk').disabled=true;s.scrollIntoView({block:'center'})}
+ const s=$('score'),p=ok/QS.length;s.hidden=false;s.textContent=`You scored ${ok} out of ${QS.length}. ${p==1?'Perfect!':p>=.7?'Great work!':'Read the working for each wrong answer, then try a new set.'}`;done=true;$('chk').textContent='Try new questions';s.scrollIntoView({block:'center'})}
 const bx=q=>{const a=q.ans,f='<span class="fr"><span class="bx"></span><s></s><span class="bx"></span></span>';return a.k=='num'?(a.pre||'')+'<span class="bx wide"></span>':a.k=='imp'?f:'<span class="bx"></span>'+f};
-function mkWs(){WS=make(+$('wcnt').value,sel('chipsW'));const w=$('wk').checked;
+function mkWs(){WS=make(+$('wcnt').value,keysOf('topicW'));const w=$('wk').checked;
  $('sheet').innerHTML=`<h2>Fractions worksheet</h2><p class="ln">Name: ____________________ Date: ____________ Score: ____ / ${WS.length}</p><p class="hint">Give fraction answers in the boxes: whole number, top, bottom. Show your working on paper.</p><ol class="wq">${WS.map(q=>`<li><div>${fmt(q.q)}</div><div class="wa">${bx(q)}</div></li>`).join('')}</ol>`;
  $('answers').innerHTML=`<h2>Answer sheet</h2><ol>${WS.map(q=>`<li><b>${fmt(at(q.ans))}</b>${w?`<ol class="wk">${li(q)}</ol>`:''}</li>`).join('')}</ol>`}
-function pr(m){if(!WS.length)mkWs();document.body.className='p-'+m;window.print()}
+let cur='ws';function view(v){cur=v;$('sheet').classList.toggle('hid',v!='ws');$('answers').classList.toggle('hid',v!='ans');$('vws').setAttribute('aria-pressed',v=='ws');$('vans').setAttribute('aria-pressed',v=='ans')}
+function pr(){document.body.className='p-'+cur;window.print()}
 onafterprint=()=>document.body.className='';
-function goP(k){document.querySelectorAll('#chipsP input').forEach(i=>i.checked=k.includes(i.value));newQ();tab('P')}
+let done=false;function btnP(){if(done){newQ();scrollTo(0,0)}else chk()}
+function goP(k){$('topicP').value=k.join(',');newQ();tab('P')}
 function tab(t){document.querySelectorAll('.pg').forEach(p=>p.classList.toggle('on',p.id=='pg'+t));document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t==t));scrollTo(0,0)}
-['chipsP','chipsW'].forEach(id=>$(id).innerHTML=Object.entries(TOP).map(([k,[t]])=>`<label class="chip"><input type="checkbox" value="${k}" checked><span>${t}</span></label>`).join(''));
+const ALL=['conv','simp','same','diff','mix','mul','div','word','eq'];
+const OPTS='<optgroup label="Start here (gentle)"><option value="start">Adding: same denominators</option><option value="startM">Multiplying</option><option value="startD">Dividing</option></optgroup><optgroup label="Topics"><option value="all">Mixed practice (SATs style)</option><option value="conv">Mixed and improper fractions</option><option value="simp">Simplifying</option><option value="same,diff,mix">Adding and subtracting</option><option value="mul">Multiplying</option><option value="div">Dividing</option><option value="word">Word problems</option><option value="eq">Missing numbers</option><option value="ext">Extension: dividing by a fraction</option></optgroup>';
+['topicP','topicW'].forEach(id=>{$(id).innerHTML=OPTS;$(id).value='all'});
+const keysOf=id=>{const v=$(id).value;return v=='all'?ALL:v.split(',')};
 document.querySelectorAll('.fm:not(.ws)').forEach(e=>e.innerHTML=fmt(e.innerHTML));
-newQ();mkWs();
+newQ();mkWs();view('ws');
+const root=document.documentElement,curTheme=()=>root.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+function setTheme(t,save){root.dataset.theme=t;$('thm').textContent=t=='dark'?'☀️ Light mode':'🌙 Dark mode';if(save)try{localStorage.setItem('th',t)}catch(e){}}
+$('thm').onclick=()=>setTheme(curTheme()=='dark'?'light':'dark',1);
+let st;try{st=localStorage.getItem('th')}catch(e){}
+setTheme(st||curTheme());
 </script></body></html>
